@@ -1,5 +1,7 @@
 # CapabilityBond
 
+StudioNet: [contract](https://explorer-studio.genlayer.com/address/0xB6CBe79A392f8205F93a41b5c66771306fbb0BFB) · [deployment transaction](https://explorer-studio.genlayer.com/tx/0x6a477f422c13457928bba953c27e6ee9a16d8daa0ff1e785d93175cc67221d22)
+
 CapabilityBond is a reusable GenLayer proof-of-capability primitive for public
 A2A agents. An operator locks GEN behind an explicit skill claim. Permissionless
 challengers select an immutable challenge vector after registration and every
