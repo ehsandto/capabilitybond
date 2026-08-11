@@ -93,3 +93,30 @@ def test_two_substantive_failures_forfeit_bond_and_preserve_history(direct_vm, d
     assert claim["bond_forfeited"] is True
     assert contract.has_ever_failed("agent-origin") is True
     assert contract.is_currently_verified("agent-origin") is False
+
+
+def test_nonce_bound_vector_selection_is_reproducible(direct_vm, direct_deploy, direct_alice, direct_bob):
+    contract = _deploy_claim(direct_vm, direct_deploy, direct_alice)
+    _mock_success(direct_vm)
+    direct_vm.sender = direct_bob
+    snapshot = direct_vm.snapshot()
+    first = contract.challenge_capability("agent-origin", "challenge-repeat", "fixed-public-nonce")
+    direct_vm.revert(snapshot)
+    second = contract.challenge_capability("agent-origin", "challenge-repeat", "fixed-public-nonce")
+    assert first["vector_id"] == second["vector_id"]
+    assert first["score_bucket"] == second["score_bucket"]
+
+
+def test_validator_rejects_substantively_different_normalized_record(direct_vm, direct_deploy, direct_alice, direct_bob):
+    contract = _deploy_claim(direct_vm, direct_deploy, direct_alice)
+    _mock_success(direct_vm)
+    direct_vm.sender = direct_bob
+    contract.challenge_capability("agent-origin", "challenge-validator", "validator-nonce")
+
+    direct_vm.clear_mocks()
+    card = {
+        "protocolVersion": "0.3.0", "name": "Origin Research Agent",
+        "url": "https://agent.example.com/a2a", "preferredTransport": "JSONRPC", "skills": [],
+    }
+    direct_vm.mock_web(r".*well-known/agent-card\.json.*", {"status": 200, "body": json.dumps(card)})
+    assert direct_vm.run_validator() is False

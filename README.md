@@ -1,6 +1,11 @@
 # CapabilityBond
 
-StudioNet: [contract](https://explorer-studio.genlayer.com/address/0xB6CBe79A392f8205F93a41b5c66771306fbb0BFB) · [deployment transaction](https://explorer-studio.genlayer.com/tx/0x6a477f422c13457928bba953c27e6ee9a16d8daa0ff1e785d93175cc67221d22)
+Corrected StudioNet deployment: [contract](https://explorer-studio.genlayer.com/address/0x892DB175b67ab8497E6969596ed3bfb4DEA708AB) · [deployment transaction](https://explorer-studio.genlayer.com/tx/0x90df15d468d865f8bb1ff141c64403f282b0eda82bd9542d8929156cd487c0d4)
+
+The repository contains exactly one deployable Python source:
+`contracts/CapabilityBond.py`. The former source-executing unit helper was
+removed; its coverage now uses standard direct-mode behavioral tests. Run
+`npm run check:discovery` to enforce this invariant.
 
 Finalized state proofs: [research profile](https://explorer-studio.genlayer.com/tx/0x31129c069a6a71def9ba703ff374026cd95eb5a863b88b27432f03dc342d7260) · [incident-analysis profile](https://explorer-studio.genlayer.com/tx/0x811f84181ad99fadc26bcde1dd38304fcc195b744cbd4ccbebc9b796fc273e93)
 

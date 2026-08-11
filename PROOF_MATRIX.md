@@ -1,16 +1,18 @@
-# Proof matrix
+# Corrected proof matrix
 
 | Claim | Evidence | Status |
 |---|---|---|
-| Contract is deployed on StudioNet | [Deployment transaction](https://explorer-studio.genlayer.com/tx/0x6a477f422c13457928bba953c27e6ee9a16d8daa0ff1e785d93175cc67221d22) | Finalized, majority agree |
-| Explorer source matches this repository | `npm run verify:deployment`; SHA-256 `2516f94ac9e72d2bea14ecfb2e542e826fc99e89132995cf3ebbf2310b4345a2` | Verified |
-| Reusable research profile can be stored | [Research profile transaction](https://explorer-studio.genlayer.com/tx/0x31129c069a6a71def9ba703ff374026cd95eb5a863b88b27432f03dc342d7260) | Finalized, majority agree, two successful executions |
-| A distinct incident-analysis profile can be stored | [Incident profile transaction](https://explorer-studio.genlayer.com/tx/0x811f84181ad99fadc26bcde1dd38304fcc195b744cbd4ccbebc9b796fc273e93) | Finalized, majority agree; remaining validator canceled after quorum |
-| Success, transient failure, strikes, forfeiture and recovery state rules work | `tests/direct/test_capabilitybond.py` | Covered by direct-mode tests |
-| Challenge selection and normalized verdict invariants work | `tests/unit/test_normalization.py` | Covered by unit tests |
-| Deployed schema exposes the documented API | `npm run verify:deployment` | 10 public methods verified |
-| Validators independently execute the live A2A/evidence path | Contract source and direct mocked-web tests | Implemented and tested, but not yet demonstrated by a finalized live A2A challenge transaction |
+| Corrected contract deployed | [Deployment](https://explorer-studio.genlayer.com/tx/0x90df15d468d865f8bb1ff141c64403f282b0eda82bd9542d8929156cd487c0d4) | Finalized, majority agree |
+| Explorer source matches repository | `npm run verify:deployment`; SHA-256 `2516f94ac9e72d2bea14ecfb2e542e826fc99e89132995cf3ebbf2310b4345a2` | Exact match |
+| Only deployable contract is discovered | `npm run check:discovery` | `contracts/CapabilityBond.py` only |
+| Research profile stored on corrected contract | [Transaction](https://explorer-studio.genlayer.com/tx/0x8af7bd6088a27f82cbb27d524d7ea9d3542118f3d1477beab43e1f6a90d89926) | Finalized, 3–0, success |
+| Incident profile stored on corrected contract | [Transaction](https://explorer-studio.genlayer.com/tx/0xf122c59411fd4feb8a34b20dd8617892c7f1fd520e0dd4262c7f58bdac41a7d8) | Finalized, 3–0, success |
+| Success, transient, strikes and forfeiture work | `tests/direct/test_capabilitybond.py` | Direct tests pass |
+| Nonce selection is reproducible | `tests/direct/test_capabilitybond.py` | Snapshot/replay test passes |
+| Validator rejects conflicting normalized record | `tests/direct/test_capabilitybond.py` | Explicit validator-disagreement test passes |
 
 ## Evidence boundary
 
-The deployment and profile transactions are genuine on-chain proofs. They do not by themselves demonstrate a live behavioral attestation. A portal submission should add a finalized `challenge_capability` transaction only after registering a bonded claim against a stable public A2A 0.3 endpoint. Error, timeout, or simulated transactions must not be represented as live challenge evidence.
+The profile transactions are genuine on-chain state proofs, not live A2A
+behavioral challenges. A behavioral-attestation link should be claimed only after
+a stable public A2A 0.3 agent is challenged successfully.

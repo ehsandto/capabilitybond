@@ -3,7 +3,7 @@ import { studionet } from "genlayer-js/chains";
 import { TransactionStatus } from "genlayer-js/types";
 
 const address = (process.env.CONTRACT_ADDRESS ??
-  "0xB6CBe79A392f8205F93a41b5c66771306fbb0BFB") as `0x${string}`;
+  "0x892DB175b67ab8497E6969596ed3bfb4DEA708AB") as `0x${string}`;
 const account = createAccount();
 const client = createClient({ chain: studionet, account });
 
